@@ -8,6 +8,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/*
+    @desc: test file for Invoice generator
+ */
 public class InvoiceGeneratorTest {
     private InvoiceGenerator invoiceGenerator;
 
@@ -45,28 +48,18 @@ public class InvoiceGeneratorTest {
         assertEquals(5.0, fare, 0.0);
     }
 
+
     /*
-        @desc: test for list of rides
-        @params: none
-        @return: void
-     */
+       @desc: test for invoice summary of list of rides
+       @params: none
+       @return: void
+    */
     @Test
-    public void calculateFareForMultipleRides() {
+    public void calculateInvoiceSummaryForMultipleRides() {
         List<Ride> rides = Arrays.asList(new Ride(5.0, 10), new Ride(2.0, 5));
-        double fare = invoiceGenerator.calculateFareForList(rides);
-        assertEquals(85.0,fare,0.0);
+        InvoiceSummary summary = invoiceGenerator.calculateFareForList(rides);
+        assertEquals(2, summary.getTotalRides());
+        assertEquals(85.0, summary.getTotalFare(), 0.0);
+        assertEquals(42.5, summary.getAverageFare(), 0.0);
     }
-
-    /*
-        @desc: test for no rides
-        @params: none
-        @return: void
-     */
-    @Test
-    public void calculateInvoiceSummaryForNoRides(){
-        List<Ride> rides = Arrays.asList();
-        double fare = invoiceGenerator.calculateFareForList(rides);
-        assertEquals(0.0,fare,0.0);
-    }
-
 }

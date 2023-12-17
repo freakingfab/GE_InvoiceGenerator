@@ -8,7 +8,9 @@ public class Main {
         System.out.println("Welcome to Cab Invoice Generator");
         List<Ride> rides = Arrays.asList(new Ride(5.0, 10), new Ride(2.0, 5));
         InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-        double fare = invoiceGenerator.calculateFareForList(rides);
-        System.out.println("Fare for ride = " + fare);
+        InvoiceSummary invoiceSummary = invoiceGenerator.calculateFareForList(rides);
+        System.out.println("Total Rides: " + invoiceSummary.getTotalRides());
+        System.out.println("Total Fare: " + invoiceSummary.getTotalFare());
+        System.out.println("Average Fare: " + invoiceSummary.getAverageFare());
     }
 }

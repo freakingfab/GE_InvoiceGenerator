@@ -25,13 +25,15 @@ public class InvoiceGenerator {
     /*
         @desc: calculate fare for list of rides
         @params: List<Ride>
-        @return: double
+        @return: Invoice Summary
      */
-    public double calculateFareForList(List<Ride> rides){
+    public InvoiceSummary calculateFareForList(List<Ride> rides){
         double totalFare = rides.stream()
                 .mapToDouble(ride -> calculateFare(ride))
                 .sum();
-        return totalFare;
+        int totalRides = rides.size();
+        double averageFare = totalFare / totalRides;
+        return new InvoiceSummary(totalRides, totalFare, averageFare);
     }
 }
 
