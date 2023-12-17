@@ -31,7 +31,7 @@ public class InvoiceGeneratorTest {
      */
     @Test
     public void calculateFareForDistanceAndTime() {
-        Ride ride = new Ride(5.0, 10);
+        Ride ride = new Ride(5.0, 10, RideCategory.NORMAL);
         double fare = invoiceGenerator.calculateFare(ride);
         assertEquals(60.0, fare, 0.0);
     }
@@ -43,7 +43,7 @@ public class InvoiceGeneratorTest {
      */
     @Test
     public void calculateMinimumFare() {
-        Ride ride = new Ride(0.1, 1);
+        Ride ride = new Ride(0.1, 1, RideCategory.NORMAL);
         double fare = invoiceGenerator.calculateFare(ride);
         assertEquals(5.0, fare, 0.0);
     }
@@ -56,10 +56,27 @@ public class InvoiceGeneratorTest {
     */
     @Test
     public void calculateInvoiceSummaryForMultipleRides() {
-        List<Ride> rides = Arrays.asList(new Ride(5.0, 10), new Ride(2.0, 5));
+        List<Ride> rides = Arrays.asList(new Ride(5.0, 10, RideCategory.NORMAL), new Ride(2.0, 5, RideCategory.NORMAL));
         InvoiceSummary summary = invoiceGenerator.calculateFareForList(rides);
         assertEquals(2, summary.getTotalRides());
         assertEquals(85.0, summary.getTotalFare(), 0.0);
         assertEquals(42.5, summary.getAverageFare(), 0.0);
+    }
+
+    /*
+        @desc: test for premium rides
+        @params: none
+        @return: void
+     */
+    @Test
+    public void calculateInvoiceForPremiumRides() {
+        Users users = new Users();
+        List<Ride> premiumRides = Arrays.asList(new Ride(5.0, 10, RideCategory.PREMIUM), new Ride(2.0, 5, RideCategory.PREMIUM));
+        users.addRides(1, premiumRides);
+
+        InvoiceSummary summary = users.getInvoice(1);
+        assertEquals(2, summary.getTotalRides());
+        assertEquals(135.0, summary.getTotalFare(), 0.0);
+        assertEquals(67.5, summary.getAverageFare(), 0.0);
     }
 }

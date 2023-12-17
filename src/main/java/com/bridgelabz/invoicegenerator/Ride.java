@@ -6,14 +6,17 @@ public class Ride{
     private double distance;
     private int time;
 
+    private RideCategory rideCategory;
+
     /*
         @desc: constructor for class
         @params: distance and time
         @return: none
      */
-    public Ride(double distance, int time){
+    public Ride(double distance, int time, RideCategory rideCategory){
         this.distance = distance;
         this.time = time;
+        this.rideCategory = rideCategory;
     }
 
     /*
@@ -32,5 +35,14 @@ public class Ride{
      */
     public int getTime() {
         return time;
+    }
+
+    /*
+        @desc: getter for ride category
+        @parasm: none
+        @return: ridecategory
+     */
+    public RideCategory getRideCategory(){
+        return rideCategory;
     }
 }

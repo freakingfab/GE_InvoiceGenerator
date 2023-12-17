@@ -7,10 +7,7 @@ import java.util.List;
     @desc: class for providing service related to invoice
  */
 public class InvoiceGenerator {
-    private static final double RATE_PER_KM = 10;
-    private static final int RATE_PER_MIN = 1;
 
-    private static final double MIN_FARE = 5;
 
     /*
         @desc: calculating fare for a ride
@@ -18,8 +15,8 @@ public class InvoiceGenerator {
         @return: double
      */
     public double calculateFare(Ride ride){
-        double fare = ride.getDistance()*RATE_PER_KM + ride.getTime()*RATE_PER_MIN;
-        return Math.max(MIN_FARE, fare);
+        double fare = ride.getDistance()*(ride.getRideCategory().getRatePerKm()) + ride.getTime()*(ride.getRideCategory().getRatePerMinute());
+        return Math.max(ride.getRideCategory().getMinFare(), fare);
     }
 
     /*
